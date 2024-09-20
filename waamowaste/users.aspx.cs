@@ -18,6 +18,83 @@ namespace waamowaste
         {
 
         }
+
+
+
+
+        [WebMethod]
+        public static string kudarxafad(string waxda, string id)
+        {
+            string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(cs))
+                {
+                    con.Open();
+
+                    // Insert into patient table
+                    string catquery = "INSERT INTO EmployeeAssignments (SubNeighborhoodID, EmployeeID, AssignmentDate) VALUES (@waxda, @id, getdate());";
+
+                    using (SqlCommand cmd = new SqlCommand(catquery, con))
+                    {
+                        cmd.Parameters.AddWithValue("@waxda", waxda);
+                        cmd.Parameters.AddWithValue("@id", id);
+                        cmd.ExecuteNonQuery();
+
+                    }
+                }
+
+                return "true";
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions and return the error message
+                return "Error in submitdata method: " + ex.Message;
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+        [WebMethod]
+        public static string deletexafadashaqo(string id)
+        {
+            string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(cs))
+                {
+                    con.Open();
+
+                    // Delete job from jobs table
+                    string jobQuery = "DELETE FROM EmployeeAssignments WHERE AssignmentID = @id";
+
+                    using (SqlCommand cmd = new SqlCommand(jobQuery, con))
+                    {
+                        cmd.Parameters.AddWithValue("@id", id);
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                return "true";
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions
+                throw new Exception("Error deleting job", ex);
+            }
+        }
+
         [WebMethod]
         public static string badalxafad(string id, string waxda)
         {

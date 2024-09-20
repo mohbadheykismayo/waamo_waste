@@ -53,7 +53,7 @@
     <a href="javascript:void(0);" id="editbtn1" class="btn btn-submit me-2" onclick="updateitemstock()">edit</a>
       <a href="javascript:void(0);" id="editbtn11" class="btn btn-submit me-2" onclick="badalwaax()">edit</a>
     
-<a href="javascript:void(0);" id="submitbtn1" class="btn btn-submit me-2" onclick="submitwax()">Submit</a>
+<a href="javascript:void(0);" id="submitbtn1" class="btn btn-submit me-2" onclick="kudarxafad()">Submit</a>
 <a href="categorylist.html" class="btn btn-cancel" data-bs-dismiss="modal">Cancel</a>
 </div>
 </div>
@@ -132,10 +132,16 @@
               <!-- Tab 1 -->
               <div class="tab-pane fade show active" id="tab1-content" role="tabpanel" aria-labelledby="tab1-tab">
                 <button class="btn btn-outline-primary w-100 mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTab1" aria-expanded="false" aria-controls="collapseTab1">
-                  Show/Hide Stock Details
+                  Show/Hide Xaafadaha iyo Waaxyaha
                 </button>
                 <div class="collapse" id="collapseTab1">
                   <div class="card card-body border-primary">
+
+                      <div class="page-btn">
+<a href="#" class="btn  btn-outline-primary btn-added" onclick="callmodal()">
+<img src="assets/img/icons/plus.svg" class="me-1" alt="img">Ku Dar Xaafad
+</a>
+</div>
                                        <div class="table-responsive">
 <table class="table  " id="xafada">
 <thead>
@@ -687,6 +693,70 @@
             });
 
 
+            $("#xafada").on("click", ".delete-btn", function (event) {
+                event.preventDefault(); // Prevent default behavior
+
+                var row = $(this).closest("tr");
+                var id = $(this).data("id");
+
+
+
+                // Clear previous error messages
+
+                Swal.fire({
+                    title: 'Ma Hubtaa ?',
+                    text: "Ma Rabtaa Inaad Delete Gareeneyso ?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, start it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Execute the AJAX request only if the user confirms
+                        $.ajax({
+                            url: 'users.aspx/deletexafadashaqo',
+                            data: "{'id':'" + id + "'}",
+                            contentType: 'application/json; charset=utf-8',
+                            dataType: 'json',
+                            type: 'POST',
+                            success: function (response) {
+                                console.log(response);
+                                if (response.d === 'true') {
+                                    Swal.fire(
+                                        'Successfully Deleted!',
+                                        'You Deleted a xafada uu ku qornaa!',
+                                        'success'
+                                    );
+                                    kashaqeyn();
+                                    $('#xafadamodal').modal('hide');
+                                    $('#stockmodal').modal('show');
+                                    datadisplay();
+                                } else {
+                                    // Handle errors in the response
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Data Insertion Failed',
+                                        text: 'There was an error while inserting the stock data: ' + response.d,
+                                    });
+                                }
+                            },
+                            error: function (response) {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'AJAX Error',
+                                    text: 'An error occurred during the AJAX request: ' + response.responseText,
+                                });
+                            }
+                        });
+                    }
+                });
+
+
+
+            });
+
+
 
         });
 
@@ -783,9 +853,69 @@
         }
 
 
+        function callmodal() {
+
+            document.getElementById('submitbtn1').style.display = 'inline-block';
+            document.getElementById('editbtn1').style.display = 'none';
+            document.getElementById('editbtn11').style.display = 'none';
+            document.getElementById('deletebtn1').style.display = 'none';
+            $("#catname").val('');
+            $('#stockmodal').modal('hide');
+            $('#xafadamodal').modal('show');
+
+        }
+
+        function kudarxafad() {
 
 
 
+
+            var waxda = $("#itemdwaxdarop").val();
+
+
+            var id = $("#id").val();
+
+
+
+
+            $.ajax({
+                url: 'users.aspx/kudarxafad',
+                data: "{'id':'" + id + "', 'waxda':'" + waxda + "'}",
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'POST',
+                success: function (response) {
+                    console.log(response);
+
+                    if (response.d === 'true') {
+                        Swal.fire(
+                            'Successfully Saved!',
+                            'You added a new Xaafad uu ka shaqeeyo!',
+                            'success'
+                        );
+            
+                        $('#xafadamodal').modal('hide');
+
+                        $('#stockmodal').modal('show');
+
+                    } else {
+                        // Handle errors in the response
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Data Insertion Failed',
+                            text: 'There was an error while inserting the data.',
+                        });
+                    }
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+
+
+
+
+        }
 
     </script>
 </asp:Content>

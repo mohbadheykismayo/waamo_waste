@@ -1,29 +1,29 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\hp\\source\\repos\\waamowaste\\",
+  "WorkspaceRootPath": "C:\\Users\\hp\\Music\\waamowaste\\waamo_waste\\waamowaste\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C68D06FC-96F3-433C-A866-74E34DEA0717}|waamowaste.csproj|c:\\users\\hp\\source\\repos\\waamowaste\\users.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "AbsoluteMoniker": "D:0:0:{C68D06FC-96F3-433C-A866-74E34DEA0717}|waamowaste.csproj|c:\\users\\hp\\music\\waamowaste\\waamo_waste\\waamowaste\\users.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
       "RelativeMoniker": "D:0:0:{C68D06FC-96F3-433C-A866-74E34DEA0717}|waamowaste.csproj|solutionrelative:users.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C68D06FC-96F3-433C-A866-74E34DEA0717}|waamowaste.csproj|C:\\Users\\hp\\source\\repos\\waamowaste\\users.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{C68D06FC-96F3-433C-A866-74E34DEA0717}|waamowaste.csproj|C:\\Users\\hp\\Music\\waamowaste\\waamo_waste\\waamowaste\\users.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C68D06FC-96F3-433C-A866-74E34DEA0717}|waamowaste.csproj|solutionrelative:users.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C68D06FC-96F3-433C-A866-74E34DEA0717}|waamowaste.csproj|C:\\Users\\hp\\source\\repos\\waamowaste\\crudneighbourhoods.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
-      "RelativeMoniker": "D:0:0:{C68D06FC-96F3-433C-A866-74E34DEA0717}|waamowaste.csproj|solutionrelative:crudneighbourhoods.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C68D06FC-96F3-433C-A866-74E34DEA0717}|waamowaste.csproj|C:\\Users\\hp\\source\\repos\\waamowaste\\crudneighbourhoods.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{C68D06FC-96F3-433C-A866-74E34DEA0717}|waamowaste.csproj|C:\\Users\\hp\\Music\\waamowaste\\waamo_waste\\waamowaste\\crudneighbourhoods.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C68D06FC-96F3-433C-A866-74E34DEA0717}|waamowaste.csproj|solutionrelative:crudneighbourhoods.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C68D06FC-96F3-433C-A866-74E34DEA0717}|waamowaste.csproj|C:\\Users\\hp\\source\\repos\\waamowaste\\home.master||{B30AFBFF-D992-43B7-B62D-2642580A2883}",
+      "AbsoluteMoniker": "D:0:0:{C68D06FC-96F3-433C-A866-74E34DEA0717}|waamowaste.csproj|C:\\Users\\hp\\Music\\waamowaste\\waamo_waste\\waamowaste\\crudneighbourhoods.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{C68D06FC-96F3-433C-A866-74E34DEA0717}|waamowaste.csproj|solutionrelative:crudneighbourhoods.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C68D06FC-96F3-433C-A866-74E34DEA0717}|waamowaste.csproj|C:\\Users\\hp\\Music\\waamowaste\\waamo_waste\\waamowaste\\home.master||{B30AFBFF-D992-43B7-B62D-2642580A2883}",
       "RelativeMoniker": "D:0:0:{C68D06FC-96F3-433C-A866-74E34DEA0717}|waamowaste.csproj|solutionrelative:home.master||{B30AFBFF-D992-43B7-B62D-2642580A2883}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C68D06FC-96F3-433C-A866-74E34DEA0717}|waamowaste.csproj|C:\\Users\\hp\\source\\repos\\waamowaste\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "AbsoluteMoniker": "D:0:0:{C68D06FC-96F3-433C-A866-74E34DEA0717}|waamowaste.csproj|C:\\Users\\hp\\Music\\waamowaste\\waamo_waste\\waamowaste\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
       "RelativeMoniker": "D:0:0:{C68D06FC-96F3-433C-A866-74E34DEA0717}|waamowaste.csproj|solutionrelative:web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     }
   ],
@@ -44,21 +44,22 @@
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "users.aspx.cs",
-              "DocumentMoniker": "C:\\Users\\hp\\source\\repos\\waamowaste\\users.aspx.cs",
+              "DocumentMoniker": "C:\\Users\\hp\\Music\\waamowaste\\waamo_waste\\waamowaste\\users.aspx.cs",
               "RelativeDocumentMoniker": "users.aspx.cs",
-              "ToolTip": "C:\\Users\\hp\\source\\repos\\waamowaste\\users.aspx.cs",
+              "ToolTip": "C:\\Users\\hp\\Music\\waamowaste\\waamo_waste\\waamowaste\\users.aspx.cs",
               "RelativeToolTip": "users.aspx.cs",
-              "ViewState": "AQIAADUAAAAAAAAAAAAwwF8AAAAAAAAA",
+              "ViewState": "AQIAAA0AAAAAAAAAAAAkwCUAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-19T13:48:03.527Z"
+              "WhenOpened": "2024-09-19T13:48:03.527Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "users.aspx",
-              "DocumentMoniker": "C:\\Users\\hp\\source\\repos\\waamowaste\\users.aspx",
+              "DocumentMoniker": "C:\\Users\\hp\\Music\\waamowaste\\waamo_waste\\waamowaste\\users.aspx",
               "RelativeDocumentMoniker": "users.aspx",
-              "ToolTip": "C:\\Users\\hp\\source\\repos\\waamowaste\\users.aspx",
+              "ToolTip": "C:\\Users\\hp\\Music\\waamowaste\\waamo_waste\\waamowaste\\users.aspx",
               "RelativeToolTip": "users.aspx",
               "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
@@ -69,9 +70,9 @@
               "$type": "Document",
               "DocumentIndex": 5,
               "Title": "Web.config",
-              "DocumentMoniker": "C:\\Users\\hp\\source\\repos\\waamowaste\\Web.config",
+              "DocumentMoniker": "C:\\Users\\hp\\Music\\waamowaste\\waamo_waste\\waamowaste\\Web.config",
               "RelativeDocumentMoniker": "Web.config",
-              "ToolTip": "C:\\Users\\hp\\source\\repos\\waamowaste\\Web.config",
+              "ToolTip": "C:\\Users\\hp\\Music\\waamowaste\\waamo_waste\\waamowaste\\Web.config",
               "RelativeToolTip": "Web.config",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAUAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
@@ -80,36 +81,39 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "crudneighbourhoods.aspx.cs",
-              "DocumentMoniker": "C:\\Users\\hp\\source\\repos\\waamowaste\\crudneighbourhoods.aspx.cs",
+              "DocumentMoniker": "C:\\Users\\hp\\Music\\waamowaste\\waamo_waste\\waamowaste\\crudneighbourhoods.aspx.cs",
               "RelativeDocumentMoniker": "crudneighbourhoods.aspx.cs",
-              "ToolTip": "C:\\Users\\hp\\source\\repos\\waamowaste\\crudneighbourhoods.aspx.cs",
+              "ToolTip": "C:\\Users\\hp\\Music\\waamowaste\\waamo_waste\\waamowaste\\crudneighbourhoods.aspx.cs",
               "RelativeToolTip": "crudneighbourhoods.aspx.cs",
-              "ViewState": "AQIAAA8AAAAAAAAAAAA7wDcAAAAEAAAA",
+              "ViewState": "AQIAAFcAAAAAAAAAAAAswGUAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-19T11:55:58.703Z"
+              "WhenOpened": "2024-09-19T11:55:58.703Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "crudneighbourhoods.aspx",
-              "DocumentMoniker": "C:\\Users\\hp\\source\\repos\\waamowaste\\crudneighbourhoods.aspx",
+              "DocumentMoniker": "C:\\Users\\hp\\Music\\waamowaste\\waamo_waste\\waamowaste\\crudneighbourhoods.aspx",
               "RelativeDocumentMoniker": "crudneighbourhoods.aspx",
-              "ToolTip": "C:\\Users\\hp\\source\\repos\\waamowaste\\crudneighbourhoods.aspx",
+              "ToolTip": "C:\\Users\\hp\\Music\\waamowaste\\waamo_waste\\waamowaste\\crudneighbourhoods.aspx",
               "RelativeToolTip": "crudneighbourhoods.aspx",
               "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2024-09-19T11:39:57.758Z"
+              "WhenOpened": "2024-09-19T11:39:57.758Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
               "Title": "home.Master",
-              "DocumentMoniker": "C:\\Users\\hp\\source\\repos\\waamowaste\\home.Master",
+              "DocumentMoniker": "C:\\Users\\hp\\Music\\waamowaste\\waamo_waste\\waamowaste\\home.Master",
               "RelativeDocumentMoniker": "home.Master",
-              "ToolTip": "C:\\Users\\hp\\source\\repos\\waamowaste\\home.Master",
+              "ToolTip": "C:\\Users\\hp\\Music\\waamowaste\\waamo_waste\\waamowaste\\home.Master",
               "RelativeToolTip": "home.Master",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
               "WhenOpened": "2024-09-19T11:39:23.973Z",
               "EditorCaption": ""
