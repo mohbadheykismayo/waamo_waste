@@ -201,16 +201,16 @@
                     </a>
                 </li>
                 <li>
-                    <a href="items.aspx" class="sidebar-button">
+                    <a href="houses.aspx" class="sidebar-button">
                         <img src="assets/img/icons/product.svg" alt="Product" class="sidebar-icon">
-                        <span>Alaabta</span>
+                        <span>Guryaha</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="order_report.aspx" class="sidebar-button">
+                    <a href="payments.aspx" class="sidebar-button">
                         <img src="assets/img/icons/cash.svg" alt="Order" class="sidebar-icon">
-                        <span>Report ka Dalab yada</span>
+                        <span>Payments</span>
                     </a>
                 </li>
                 <li>
