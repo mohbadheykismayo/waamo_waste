@@ -17,6 +17,96 @@ namespace waamowaste
         {
 
         }
+        [WebMethod]
+        public static string SaveHouseDetails(string houseNumber, string waaxda, string street, string city, string state, string postalCode, string gpsLatitude, string gpsLongitude, string isActive, string fullname, string number, decimal amount, string date)
+        {
+            try
+            {
+                // Parse the date string to DateTime
+                DateTime parsedDate = DateTime.Parse(date);
+
+                // Your connection string to the SQL Server database
+                string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
+
+                using (SqlConnection conn = new SqlConnection(cs))
+                {
+                    // Open the connection
+                    conn.Open();
+
+                    // Start a SQL transaction to ensure atomicity
+                    SqlTransaction transaction = conn.BeginTransaction();
+
+                    try
+                    {
+                        // Insert into Houses table
+                        string houseInsertQuery = @"
+                    INSERT INTO Houses (HouseNumber, SubNeighborhoodID, Street, City, State, PostalCode, GPSLatitude, GPSLongitude, IsActive, FullName, Number, Amount, Date)
+                    VALUES (@HouseNumber, @SubNeighborhoodID,  @Street, @City, @State, @PostalCode, @GPSLatitude, @GPSLongitude, @IsActive, @FullName, @Number, @Amount, @Date);
+                    SELECT SCOPE_IDENTITY();"; // To retrieve the new HouseID
+
+                        using (SqlCommand cmd = new SqlCommand(houseInsertQuery, conn, transaction))
+                        {
+                            // Add parameters to prevent SQL injection
+                            cmd.Parameters.AddWithValue("@HouseNumber", houseNumber);
+                            cmd.Parameters.AddWithValue("@SubNeighborhoodID", waaxda);
+                            cmd.Parameters.AddWithValue("@Street", street);
+                            cmd.Parameters.AddWithValue("@City", city);
+                            cmd.Parameters.AddWithValue("@State", state);
+                            cmd.Parameters.AddWithValue("@PostalCode", postalCode);
+                            cmd.Parameters.AddWithValue("@GPSLatitude", string.IsNullOrEmpty(gpsLatitude) ? (object)DBNull.Value : gpsLatitude);
+                            cmd.Parameters.AddWithValue("@GPSLongitude", string.IsNullOrEmpty(gpsLongitude) ? (object)DBNull.Value : gpsLongitude);
+                            cmd.Parameters.AddWithValue("@IsActive", isActive == "1" ? 1 : 0);
+                            cmd.Parameters.AddWithValue("@FullName", fullname);
+                            cmd.Parameters.AddWithValue("@Number", number);
+                            cmd.Parameters.AddWithValue("@Amount", amount);
+                            cmd.Parameters.AddWithValue("@Date", parsedDate);  // Pass the parsed date
+
+                            // Execute the query and get the new HouseID
+                            int houseID = Convert.ToInt32(cmd.ExecuteScalar());
+
+                            // Insert into PaymentStatus table
+                            string paymentStatusInsertQuery = @"
+                        INSERT INTO PaymentStatus (HouseID, Month, Year, HasPaid, DueAmount, PaymentPeriodID, amount, paidamount)
+                        VALUES (@HouseID, @Month, @Year, @HasPaid, @DueAmount, @PaymentPeriodID, @Amount, @PaidAmount)";
+
+                            using (SqlCommand paymentCmd = new SqlCommand(paymentStatusInsertQuery, conn, transaction))
+                            {
+                                // Add the required parameters
+                                paymentCmd.Parameters.AddWithValue("@HouseID", houseID);
+                                paymentCmd.Parameters.AddWithValue("@Month", parsedDate.Month);  // Month from the date field
+                                paymentCmd.Parameters.AddWithValue("@Year", parsedDate.Year);    // Year from the date field
+                                paymentCmd.Parameters.AddWithValue("@HasPaid", 0);               // Default value for HasPaid
+                                paymentCmd.Parameters.AddWithValue("@DueAmount", amount);        // Due amount same as house amount
+                                paymentCmd.Parameters.AddWithValue("@PaymentPeriodID", 1);       // Example PaymentPeriodID, modify as needed
+                                paymentCmd.Parameters.AddWithValue("@Amount", amount);           // House amount
+                                paymentCmd.Parameters.AddWithValue("@PaidAmount", 0);            // Initially paid amount is 0
+
+                                // Execute PaymentStatus insertion
+                                paymentCmd.ExecuteNonQuery();
+                            }
+
+                            // Commit the transaction if both insertions succeed
+                            transaction.Commit();
+                        }
+
+                        return "Success";
+                    }
+                    catch (Exception ex)
+                    {
+                        // Rollback the transaction in case of any error
+                        transaction.Rollback();
+                        // Log the error details
+                        return "Error during transaction: " + ex.Message;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log the parsing or general exception
+                return "Error: " + ex.Message;
+            }
+        }
+
 
         public class house
         {
