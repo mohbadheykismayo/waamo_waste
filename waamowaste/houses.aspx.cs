@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
@@ -120,6 +121,17 @@ namespace waamowaste
             public string GPSLongitude;
             public string GPSLatitude;
 
+
+
+            public string Street;
+            public string City;
+            public string State;
+            public string PostalCode;
+            public string date;
+            public string Amount;
+            public string NeighborhoodID;
+            public string SubNeighborhoodID;
+
         }
 
         [WebMethod]
@@ -145,12 +157,36 @@ inner join Neighborhoods on SubNeighborhoods.NeighborhoodID = Neighborhoods.Neig
 
                     field.SubNeighborhoodName = dr["SubNeighborhoodName"].ToString();
                     field.HouseID = dr["HouseID"].ToString();
-
+                    field.GPSLatitude = dr["GPSLatitude"].ToString();
+                    field.GPSLongitude = dr["GPSLongitude"].ToString();
                     field.HouseNumber = dr["HouseNumber"].ToString();
 
                     field.IsActive = dr["IsActive"].ToString();
                     field.fullname = dr["fullname"].ToString();
                     field.number = dr["number"].ToString();
+
+
+
+                    field.Street = dr["Street"].ToString();
+
+                    field.City = dr["City"].ToString();
+
+                    field.State = dr["State"].ToString();
+
+
+                    field.PostalCode = dr["PostalCode"].ToString();
+                    field.date = dr["date"].ToString();
+
+                    field.Amount = dr["Amount"].ToString();
+
+
+                    field.NeighborhoodID = dr["NeighborhoodID"].ToString();
+                    field.SubNeighborhoodID = dr["SubNeighborhoodID"].ToString();
+
+
+
+
+
 
 
                     details.Add(field);
@@ -162,7 +198,7 @@ inner join Neighborhoods on SubNeighborhoods.NeighborhoodID = Neighborhoods.Neig
 
 
         [WebMethod]
-        public static house[] datadisplay1( string id )
+        public static house[] datadisplay1(string id)
         {
             List<house> details = new List<house>();
             string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
@@ -202,5 +238,189 @@ where Houses.HouseID = @id
 
             return details.ToArray();
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        [WebMethod]
+        public static fclass[] financedisplay(string id)
+        {
+            List<fclass> details = new List<fclass>();
+            string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
+
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(@"  
+
+ 
+SELECT TOP (1000) 
+    CASE 
+        WHEN PaymentStatus.[Month] = 1 THEN 'Jan'
+        WHEN PaymentStatus.[Month] = 2 THEN 'Feb'
+        WHEN PaymentStatus.[Month] = 3 THEN 'Mar'
+        WHEN PaymentStatus.[Month] = 4 THEN 'Apr'
+        WHEN PaymentStatus.[Month] = 5 THEN 'May'
+        WHEN PaymentStatus.[Month] = 6 THEN 'Jun'
+        WHEN PaymentStatus.[Month] = 7 THEN 'Jul'
+        WHEN PaymentStatus.[Month] = 8 THEN 'Aug'
+        WHEN PaymentStatus.[Month] = 9 THEN 'Sep'
+        WHEN PaymentStatus.[Month] = 10 THEN 'Oct'
+        WHEN PaymentStatus.[Month] = 11 THEN 'Nov'
+        WHEN PaymentStatus.[Month] = 12 THEN 'Dec'
+    END + ', ' + CAST(PaymentStatus.[Year] AS VARCHAR(4)) AS [MonthYear],
+    CASE 
+        WHEN PaymentStatus.[HasPaid] = 1 THEN 'Paid'
+        ELSE 'Not Paid'
+    END AS [PaymentStatus],
+
+    PaymentStatus.[paidamount]
+  
+FROM [waamo_waste].[dbo].[PaymentStatus]
+INNER JOIN Houses ON PaymentStatus.HouseID = Houses.HouseID
+INNER JOIN SubNeighborhoods ON Houses.SubNeighborhoodID = SubNeighborhoods.SubNeighborhoodID
+INNER JOIN Neighborhoods ON SubNeighborhoods.NeighborhoodID = Neighborhoods.NeighborhoodID
+WHERE Houses.HouseID = @id;
+
+        ", con);
+                cmd.Parameters.AddWithValue("@id", id);
+
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    fclass field = new fclass();
+                    field.PaymentStatus = dr["PaymentStatus"].ToString();
+
+                    field.MonthYear = dr["MonthYear"].ToString();
+                    field.paidamount = dr["paidamount"].ToString();
+
+
+                    details.Add(field);
+                }
+            } // Connection will be automatically closed here
+
+            return details.ToArray();
+        }
+
+
+
+        public class fclass
+        {
+            public string PaymentStatus { get; set; }
+            public string MonthYear { get; set; }
+            public string paidamount { get; set; }
+
+        }
+
+        [WebMethod]
+        public static string updatehouses(HouseData houseData)
+        {
+
+            bool isActive = houseData.isActive;
+            try
+            {
+                // Connection string from Web.config
+                string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
+
+                // SQL query for updating the house details
+                string query = @"
+                UPDATE Houses
+                SET 
+                    SubNeighborhoodID = @waaxda,
+                    Street = @street,
+                    City = @city,
+                    State = @state,
+                    PostalCode = @postalCode,
+                    GPSLatitude = @gpsLatitude,
+                    GPSLongitude = @gpsLongitude,
+                    IsActive = @isActive,
+                    fullname = @fullname,
+                    number = @number,
+                    Amount = @amount,
+                     houseNumber = @houseNumber,
+                    date = @date
+
+
+
+
+                WHERE 
+                    HouseID = @HouseID";
+
+                using (SqlConnection connection = new SqlConnection(cs))
+                {
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        // Adding parameters to prevent SQL injection
+                        command.Parameters.AddWithValue("@houseNumber", houseData.houseNumber);
+                        command.Parameters.AddWithValue("@waaxda", houseData.waaxda);
+                        command.Parameters.AddWithValue("@street", houseData.street);
+                        command.Parameters.AddWithValue("@city", houseData.city);
+                        command.Parameters.AddWithValue("@state", houseData.state);
+                        command.Parameters.AddWithValue("@postalCode", houseData.postalCode);
+                        command.Parameters.AddWithValue("@gpsLatitude", houseData.gpsLatitude);
+                        command.Parameters.AddWithValue("@gpsLongitude", houseData.gpsLongitude);
+                        command.Parameters.AddWithValue("@isActive", houseData.isActive);
+                        command.Parameters.AddWithValue("@fullname", houseData.fullname);
+                        command.Parameters.AddWithValue("@number", houseData.number);
+                        command.Parameters.AddWithValue("@amount", houseData.amount);
+                        command.Parameters.AddWithValue("@date", houseData.date);
+                        command.Parameters.AddWithValue("@HouseID", houseData.HouseID);
+                        connection.Open();
+                        int rowsAffected = command.ExecuteNonQuery();
+
+                        // Check if the update was successful
+                        if (rowsAffected > 0)
+                        {
+                            return "Success";
+                        }
+                        else
+                        {
+                            return "Failed to update the house details.";
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log the error (you can implement your own logging mechanism here)
+                return "Error: " + ex.Message;
+            }
+        }
+
+        // Define a C# class for the house data
+        public class HouseData
+        {
+            public string houseNumber { get; set; }
+            public string waaxda { get; set; }
+            public string street { get; set; }
+            public string city { get; set; }
+            public string state { get; set; }
+            public string postalCode { get; set; }
+            public decimal gpsLatitude { get; set; }
+            public decimal gpsLongitude { get; set; }
+            public bool isActive { get; set; }
+            public string fullname { get; set; }
+            public string number { get; set; }
+            public string amount { get; set; }
+            public string date { get; set; }
+            public string HouseID { get; set; }
+
+        }
     }
 }
+
+
+
+
+

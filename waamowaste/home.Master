@@ -208,15 +208,15 @@
                 </li>
 
                 <li>
-                    <a href="payments.aspx" class="sidebar-button">
+                    <a href="paymentga.aspx" class="sidebar-button">
                         <img src="assets/img/icons/cash.svg" alt="Order" class="sidebar-icon">
                         <span>Payments</span>
                     </a>
                 </li>
                 <li>
-                    <a href="add_details.aspx" class="sidebar-button">
+                    <a href="reports.aspx" class="sidebar-button">
                         <img src="assets/img/icons/users1.svg" alt="People" class="sidebar-icon">
-                        <span>Dadka Iyo Qolalka</span>
+                        <span>Reports</span>
                     </a>
                 </li>
                 <li id="adminLink" runat="server">

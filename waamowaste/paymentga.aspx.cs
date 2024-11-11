@@ -215,7 +215,8 @@ inner join Neighborhoods on SubNeighborhoods.NeighborhoodID = Neighborhoods.Neig
             public string IsActive;
             public string fullname;
             public string number;
-
+            public string MonthYear;
+            
             public string PaymentStatusID;
             public string amount;
             public string DueAmount;
@@ -235,29 +236,39 @@ inner join Neighborhoods on SubNeighborhoods.NeighborhoodID = Neighborhoods.Neig
             {
                 con.Open();
                 SqlCommand cmd = new SqlCommand(@"  
-  SELECT TOP (1000) 
-   PaymentStatus.   [PaymentStatusID],
-   PaymentStatus.   [HouseID],
-     PaymentStatus. [Month],
-   PaymentStatus.   [Year],
-     PaymentStatus. [HasPaid],
-    PaymentStatus.  [DueAmount],
-     PaymentStatus. [PaymentPeriodID],
-      PaymentStatus.[paidamount],
-	  Houses.Amount,
-  Houses.HouseNumber,
-      Houses.fullname,
-       Houses.number,
-	  Neighborhoods.NeighborhoodName,
-	  SubNeighborhoods.SubNeighborhoodName
+SELECT TOP (1000) 
+    PaymentStatus.[PaymentStatusID],
+    PaymentStatus.[HouseID],
+    CASE 
+        WHEN PaymentStatus.[Month] = 1 THEN 'Jan'
+        WHEN PaymentStatus.[Month] = 2 THEN 'Feb'
+        WHEN PaymentStatus.[Month] = 3 THEN 'Mar'
+        WHEN PaymentStatus.[Month] = 4 THEN 'Apr'
+        WHEN PaymentStatus.[Month] = 5 THEN 'May'
+        WHEN PaymentStatus.[Month] = 6 THEN 'Jun'
+        WHEN PaymentStatus.[Month] = 7 THEN 'Jul'
+        WHEN PaymentStatus.[Month] = 8 THEN 'Aug'
+        WHEN PaymentStatus.[Month] = 9 THEN 'Sep'
+        WHEN PaymentStatus.[Month] = 10 THEN 'Oct'
+        WHEN PaymentStatus.[Month] = 11 THEN 'Nov'
+        WHEN PaymentStatus.[Month] = 12 THEN 'Dec'
+    END + ', ' + CAST(PaymentStatus.[Year] AS VARCHAR(4)) AS [MonthYear],
+    PaymentStatus.[HasPaid],
+    PaymentStatus.[DueAmount],
+    PaymentStatus.[PaymentPeriodID],
+    PaymentStatus.[paidamount],
+    Houses.Amount,
+    Houses.HouseNumber,
+    Houses.fullname,
+    Houses.number,
+    Neighborhoods.NeighborhoodName,
+    SubNeighborhoods.SubNeighborhoodName
+FROM [waamo_waste].[dbo].[PaymentStatus]
+INNER JOIN Houses ON PaymentStatus.HouseID = Houses.HouseID
+INNER JOIN SubNeighborhoods ON Houses.SubNeighborhoodID = SubNeighborhoods.SubNeighborhoodID
+INNER JOIN Neighborhoods ON SubNeighborhoods.NeighborhoodID = Neighborhoods.NeighborhoodID
 
-  FROM [waamo_waste].[dbo].[PaymentStatus]
-  inner join Houses on PaymentStatus.HouseID = Houses.HouseID
-  inner join SubNeighborhoods on Houses.SubNeighborhoodID = SubNeighborhoods.SubNeighborhoodID
-inner join Neighborhoods on SubNeighborhoods.NeighborhoodID = Neighborhoods.NeighborhoodID
-  WHERE [Month] = MONTH(GETDATE())
-  AND [Year] = YEAR(GETDATE())
-  and PaymentStatus.HouseID = @id and PaymentStatus.HasPaid = 1;
+  WHERE  Houses.HouseNumber = @id and PaymentStatus.HasPaid = 0 ;
         ", con);
                 cmd.Parameters.AddWithValue("@id", id);
 
@@ -271,11 +282,13 @@ inner join Neighborhoods on SubNeighborhoods.NeighborhoodID = Neighborhoods.Neig
                     field.HouseID = dr["HouseID"].ToString();
 
                     field.HouseNumber = dr["HouseNumber"].ToString();
-
+                    field.MonthYear = dr["MonthYear"].ToString();
+                    
                     field.fullname = dr["fullname"].ToString();
                     field.number = dr["number"].ToString();
                     field.DueAmount = dr["DueAmount"].ToString();
                     field.amount = dr["Amount"].ToString();
+                    field.PaymentStatusID = dr["PaymentStatusID"].ToString();
                     details.Add(field);
                 }
             } // Connection will be automatically closed here
@@ -283,6 +296,88 @@ inner join Neighborhoods on SubNeighborhoods.NeighborhoodID = Neighborhoods.Neig
             return details.ToArray();
         }
 
+        [WebMethod]
+        public static string saveAmount(int PaymentStatusID, decimal paidAmount)
+        {
+            // Define your connection string
+            string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
+
+            try
+            {
+                // Establish a connection to the database
+                using (SqlConnection conn = new SqlConnection(cs))
+                {
+                    conn.Open();
+
+                    // First, retrieve the current DueAmount and PaidAmount
+                    string selectQuery = "SELECT amount, DueAmount, paidamount FROM PaymentStatus WHERE PaymentStatusID = @PaymentStatusID";
+                    using (SqlCommand selectCmd = new SqlCommand(selectQuery, conn))
+                    {
+                        selectCmd.Parameters.AddWithValue("@PaymentStatusID", PaymentStatusID);
+
+                        using (SqlDataReader reader = selectCmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                decimal totalAmount = reader.GetDecimal(0);  // The total amount assigned to pay
+                                decimal currentDueAmount = reader.GetDecimal(1);  // The remaining DueAmount
+                                decimal currentPaidAmount = reader.GetDecimal(2);  // The total amount paid so far
+
+                                // Ensure the payment doesn't exceed the remaining DueAmount
+                                if (paidAmount > currentDueAmount)
+                                {
+                                    return "The amount you are trying to pay exceeds the remaining due amount.";
+                                }
+
+                                // Calculate the new DueAmount and PaidAmount
+                                decimal newDueAmount = currentDueAmount - paidAmount;
+                                decimal newPaidAmount = currentPaidAmount + paidAmount;
+
+                                // Determine if the user has paid the full amount
+                                int hasPaid = newDueAmount == 0 ? 1 : 0; // Set HasPaid to 1 if DueAmount becomes 0
+
+                                // Close the reader before proceeding with the update
+                                reader.Close();
+
+                                // Update the database with the new values
+                                string updateQuery = @"
+                            UPDATE PaymentStatus 
+                            SET DueAmount = @NewDueAmount, paidamount = @NewPaidAmount, HasPaid = @HasPaid
+                            WHERE PaymentStatusID = @PaymentStatusID";
+
+                                using (SqlCommand updateCmd = new SqlCommand(updateQuery, conn))
+                                {
+                                    updateCmd.Parameters.AddWithValue("@NewDueAmount", newDueAmount);
+                                    updateCmd.Parameters.AddWithValue("@NewPaidAmount", newPaidAmount);
+                                    updateCmd.Parameters.AddWithValue("@HasPaid", hasPaid);  // Update HasPaid status
+                                    updateCmd.Parameters.AddWithValue("@PaymentStatusID", PaymentStatusID);
+
+                                    int rowsAffected = updateCmd.ExecuteNonQuery();
+
+                                    if (rowsAffected > 0)
+                                    {
+                                        return "Payment saved successfully!";
+                                    }
+                                    else
+                                    {
+                                        return "Failed to save payment. Please try again.";
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                return "No record found for the specified PaymentStatusID.";
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle any errors that occurred during the database operation
+                return "Error: " + ex.Message;
+            }
+        }
 
     }
 }

@@ -101,114 +101,87 @@
     </style>
 
 
+    <!-- Custom CSS for additional styling -->
+<style>
+  #customEyeCatchingModal .modal-dialog {
+    max-width: 90%;
+  }
 
+  #modalContent {
+    border-radius: 15px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+  }
 
-    <style>
-        /* Modal Container */
-#modalContent {
-    background: linear-gradient(135deg, #00c6ff, #0072ff);
+  #modalHeader {
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #007bff;
+    padding: 1.5rem;
+  }
+
+  #modalBody {
+    padding: 2rem;
+    background-color: #ffffff;
+  }
+
+  #styledTable {
     border-radius: 10px;
-    color: white;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    overflow: hidden;
-}
+  }
 
-/* Modal Header */
-#modalHeader {
-    background: linear-gradient(to right, #005bea, #00c6ff);
-    color: white;
-    font-size: 1.5rem;
-    text-transform: uppercase;
-    padding: 20px;
-    border-bottom: none;
-}
+  #styledTable thead {
+    background-color: #343a40;
+    color: #ffffff;
+  }
 
-#modalHeader h5 {
-    font-weight: bold;
-    letter-spacing: 2px;
-}
+  #styledTable tbody tr:hover {
+    background-color: #f1f1f1;
+  }
 
-/* Modal Body */
-#modalBody {
-    padding: 30px;
-    background: #f4f4f9;
-    color: #333;
-}
+  #paymentForm {
+    background-color: #f0f8ff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
 
-/* Styled Table */
-#styledTable {
-    background-color: white;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
 
-#styledTable thead {
-    background-color: #0072ff;
-    color: white;
-    text-transform: uppercase;
-}
-
-#styledTable th, #styledTable td {
-    padding: 15px;
-    border-bottom: 1px solid #ddd;
-}
-
-#styledTable tbody tr:hover {
-    background-color: rgba(0, 114, 255, 0.1);
-    cursor: pointer;
-}
-
-/* Form Styling */
-#paymentForm {
-    margin-top: 20px;
-}
-
-#amountInput {
-    padding: 15px;
-    font-size: 1.2rem;
-    border: 2px solid #0072ff;
-    border-radius: 6px;
-}
-
-/* Submit Button */
-#submitPayment {
-    background-color: #28a745;
-    color: white;
-    font-size: 1.2rem;
-    padding: 15px;
-    margin-top: 20px;
+  #submitPayment {
+    background-color: #007bff;
     border: none;
-    border-radius: 6px;
-    transition: background-color 0.3s ease;
-}
+    font-size: 1.2rem;
+    transition: background-color 0.3s;
+  }
 
-#submitPayment:hover {
+  #submitPayment:hover {
+    background-color: #0056b3;
+  }
+
+  #confirmPaymentBtn {
+    background-color: #28a745;
+    border: none;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+  }
+
+  #confirmPaymentBtn:hover {
     background-color: #218838;
-}
+  }
 
-/* Modal Footer */
-#modalFooter {
-    background: #f4f4f9;
-    border-top: none;
-    padding: 20px;
-}
+  @media (max-width: 768px) {
+    #customEyeCatchingModal .modal-dialog {
+      max-width: 100%;
+    }
 
-/* Cancel Button */
-#modalFooter .btn-secondary {
-    background-color: #dc3545;
-    border-color: #dc3545;
-    color: white;
-    padding: 10px 20px;
-    font-size: 1.1rem;
-}
+    #modalBody {
+      padding: 1rem;
+    }
 
-#modalFooter .btn-secondary:hover {
-    background-color: #c82333;
-    border-color: #bd2130;
-}
+    #submitPayment {
+      font-size: 1rem;
+    }
+  }
+</style>
 
-    </style>
+
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container">
@@ -217,7 +190,7 @@
         </div>
         <div class="action-buttons">
             <div>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPaymentModal"><i class="fas fa-plus"></i> Add Payment</button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPaymentModal"><i class="fas fa-plus"></i> Charge</button>
                 <button type="button" class="btn btn-success"><i class="fas fa-sync-alt"></i> Refresh Data</button>
             </div>
             <div>
@@ -295,27 +268,30 @@
     </div>
 </div>
 
-
 <!-- Eye-Catching Custom Styled Payment Modal -->
 <div class="modal fade" id="customEyeCatchingModal" tabindex="-1" aria-labelledby="customEyeCatchingModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl modal-dialog-centered">
     <div class="modal-content" id="modalContent">
       <!-- Modal Header -->
       <div class="modal-header" id="modalHeader">
-        <h5 class="modal-title" id="customEyeCatchingModalLabel">Payment Details</h5>
+        <h5 class="modal-title fw-bold text-primary" id="customEyeCatchingModalLabel">Payment Details</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+
       <!-- Modal Body with table and form -->
       <div class="modal-body" id="modalBody">
+        <!-- Table Section -->
         <div class="table-responsive">
-          <table class="table" id="styledTable">
-            <thead>
+          <table class="table table-hover table-striped text-center align-middle" id="styledTable">
+            <thead class="table-dark">
               <tr>
                 <th>Full Name</th>
                 <th>House Number</th>
                 <th>Neighborhood</th>
                 <th>Sub-Neighborhood</th>
                 <th>Contact Number</th>
+                       <th>MonthYear</th>
+                  
                 <th>Due Amount</th>
               </tr>
             </thead>
@@ -324,22 +300,26 @@
             </tbody>
           </table>
         </div>
-        <!-- Payment form -->
-        <form id="paymentForm">
+
+        <!-- Payment Form Section -->
+        <form id="paymentForm" class="mt-4 p-4 bg-light rounded shadow">
           <div class="mb-3">
             <label for="amountInput" class="form-label">Enter Payment Amount</label>
             <input type="number" class="form-control" id="amountInput" placeholder="Enter amount">
           </div>
-          <button type="button" class="btn btn-primary w-100" id="submitPayment">Submit Payment</button>
+          <button type="button" class="btn btn-primary w-100 btn-lg" id="submitPayment">Submit Payment</button>
         </form>
       </div>
+
       <!-- Modal Footer -->
-      <div class="modal-footer" id="modalFooter">
+      <div class="modal-footer d-flex justify-content-between" id="modalFooter">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-success" id="confirmPaymentBtn">Confirm Payment</button>
       </div>
     </div>
   </div>
 </div>
+
 
     <script src="assets/js/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
@@ -486,7 +466,6 @@
         //        }
         //    });
         //});
-
         datadisplay();
         function datadisplay() {
             $.ajax({
@@ -495,9 +474,11 @@
                 type: 'POST',
                 contentType: "application/json",
                 success: function (response) {
-                    console.log(response)
-                    var datatable = $('#datatable').DataTable();
-                    datatable.clear();
+                    console.log(response);
+                    // Clear the existing table content
+                    $("#datatable tbody").empty();
+
+                    // Iterate through the response data
                     for (var i = 0; i < response.d.length; i++) {
                         var NeighborhoodName = response.d[i].NeighborhoodName;
                         var SubNeighborhoodName = response.d[i].SubNeighborhoodName;
@@ -506,43 +487,32 @@
                         var fullname = response.d[i].fullname;
                         var number = response.d[i].number;
                         var HouseID = response.d[i].HouseID;
-
-
                         var amount = response.d[i].amount;
                         var DueAmount = response.d[i].DueAmount;
                         var PaymentStatusID = response.d[i].PaymentStatusID;
 
+                        // Create a new row with the data
+                        var newRow = `
+                    <tr>
+                        <td>${fullname}</td>
+                        <td>${HouseNumber}</td>
+                        <td>${NeighborhoodName}</td>
+                        <td>${SubNeighborhoodName}</td>
+                        <td>${number}</td>
+                        <td>${DueAmount}</td>
+                        <td>
+                            <a class="me-3 edit-button" data-id="${HouseNumber}">
+                                <img src="assets/img/icons/edit.svg" alt="Edit">
+                            </a>
+                            <a class="me-3 delete-btn" data-id="${HouseNumber}">
+                                <img src="assets/img/icons/delete.svg" alt="Delete">
+                            </a>
+                        </td>
+                    </tr>
+                `;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                        datatable.row.add([
-                            fullname,
-                            HouseNumber,
-                            NeighborhoodName,
-                            SubNeighborhoodName,
-                            number,
-                            DueAmount,
-                            '<a class="me-3 edit-button" data-id="' + HouseID + '">' +
-                            '<img src="assets/img/icons/edit.svg" alt="Edit">' +
-                            '</a>' +
-                            '<a class="me-3 delete-btn" data-id="' + HouseID + '">' +
-                            '<img src="assets/img/icons/delete.svg" alt="Delete">' +
-                            '</a>'
-                        ]).draw();
+                        // Append the new row to the table body
+                        $("#datatable tbody").append(newRow);
                     }
                 },
                 error: function (response) {
@@ -550,7 +520,6 @@
                 }
             });
         }
-
 
 
 
@@ -565,20 +534,19 @@
 
             //$("#id").val(id);
             //$("#catname").val(name);
-
-            alert(id);
             $.ajax({
                 url: 'paymentga.aspx/datadisplay1',
-                data: "{'id':'" + id + "' }",
+                data: "{'id':'" + id + "'}",
                 dataType: "json",
                 type: 'POST',
                 contentType: "application/json",
                 success: function (response) {
-                    console.log(response)
+                    console.log(response);
 
-
+                    // Clear the table body before adding new data
                     $("#styledTable tbody").empty();
 
+                    // Loop through the response and append the data to the table
                     for (var i = 0; i < response.d.length; i++) {
                         var NeighborhoodName = response.d[i].NeighborhoodName;
                         var SubNeighborhoodName = response.d[i].SubNeighborhoodName;
@@ -587,24 +555,12 @@
                         var fullname = response.d[i].fullname;
                         var number = response.d[i].number;
                         var HouseID = response.d[i].HouseID;
-
-
+                        var DueAmount = response.d[i].DueAmount; // Use DueAmount for the max value
                         var amount = response.d[i].amount;
-                        var DueAmount = response.d[i].DueAmount;
                         var PaymentStatusID = response.d[i].PaymentStatusID;
+                        var MonthYear = response.d[i].MonthYear;
 
-
-
-
-
-
-
-
-
-
-
-
-
+                        // Append the data along with the input field and save button
                         $("#styledTable tbody").append(
                             "<tr>" +
                             "<td>" + fullname + "</td>" +
@@ -612,31 +568,70 @@
                             "<td>" + NeighborhoodName + "</td>" +
                             "<td>" + SubNeighborhoodName + "</td>" +
                             "<td>" + number + "</td>" +
+                            "<td>" + MonthYear + "</td>" +
+
                             "<td>" + DueAmount + "</td>" +
-                             "<td>" +
-                            '<a class="me-3 edit-button" data-id="' + HouseID + '">' +
+                            "<td><input type='number' class='form-control amount-input' placeholder='Enter amount' id='amount-" + PaymentStatusID + "' max='" + DueAmount + "'></td>" + // Set max as DueAmount
+                            "<td>" +
+                            '<a class="me-3 edit-button" data-id="' + PaymentStatusID + '">' +
                             '<img src="assets/img/icons/edit.svg" alt="Edit">' +
                             '</a>' +
-                            '<a class="me-3 delete-btn" data-id="' + HouseID + '">' +
+                            '<a class="me-3 delete-btn" data-id="' + PaymentStatusID + '">' +
                             '<img src="assets/img/icons/delete.svg" alt="Delete">' +
                             '</a>' +
+                            '<button class="btn btn-primary save-btn" data-id="' + PaymentStatusID + '" disabled>Save</button>' + // Save button, initially disabled
                             "</td>" +
                             "</tr>"
                         );
                     }
 
+                    // Enable Save button only if the amount is equal to or less than DueAmount
+                    $(".amount-input").on('input', function () {
+                        var PaymentStatusID = $(this).attr('id').split('-')[1]; // Extract PaymentStatusID from the input's ID
+                        var amountValue = $(this).val();
+                        var dueAmount = $(this).attr('max'); // Use max attribute (DueAmount)
 
+                        // Enable Save button only if amountValue is greater than 0 and less than or equal to the DueAmount
+                        if (amountValue && parseFloat(amountValue) > 0 && parseFloat(amountValue) <= parseFloat(dueAmount)) {
+                            $(".save-btn[data-id='" + PaymentStatusID + "']").prop('disabled', false);
+                        } else {
+                            $(".save-btn[data-id='" + PaymentStatusID + "']").prop('disabled', true);
+                        }
+                    });
+
+                    // Save the entered amount when the Save button is clicked
+                    $(".save-btn").on('click', function (event) {
+                        event.preventDefault(); // Prevent page refresh
+
+                        var PaymentStatusID = $(this).data('id');
+                        var amountValue = $('#amount-' + PaymentStatusID).val(); // Get the value from the input field
+
+
+                        alert(PaymentStatusID);
+                        alert(amountValue);
+                        // Make an AJAX request to save the entered amount for this house
+                        $.ajax({
+                            url: 'paymentga.aspx/saveAmount',
+                            type: 'POST',
+                            data: JSON.stringify({ PaymentStatusID: PaymentStatusID, paidAmount: amountValue }),
+                            contentType: 'application/json',
+                            success: function (response) {
+                                console.log(response);
+                                alert('Amount saved successfully!');
+                                // Optionally, you can update the UI or refresh part of the page here without reloading the full page
+                            },
+                            error: function (xhr, status, error) {
+                                // Capture and display the server-side error message
+                                var errorMessage = xhr.responseText ? xhr.responseText : "An error occurred during the save operation. Please try again.";
+                                alert('Error: ' + errorMessage);
+                            }
+                        });
+                    });
                 },
                 error: function (response) {
                     alert(response.responseText);
                 }
             });
-
-   
-
-
-
-
 
             $('#customEyeCatchingModal').modal('show');
 
