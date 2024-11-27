@@ -189,6 +189,12 @@
         <div id="sidebar-menu" class="sidebar-menu">
             <ul class="sidebar-buttons">
                            <li>
+    <a href="dashbourd.aspx" class="sidebar-button">
+        <img src="assets/img/icons/sales1.svg" alt="Order" class="sidebar-icon">
+        <span>Dashbourd</span>
+    </a>
+</li>
+                           <li>
                     <a href="crudneighbourhoods.aspx" class="sidebar-button">
                         <img src="assets/img/icons/sales1.svg" alt="Order" class="sidebar-icon">
                         <span>Qeybta Xaafadaha</span>

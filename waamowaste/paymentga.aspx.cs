@@ -86,18 +86,36 @@ namespace waamowaste
                             }
                         }
 
+                        // Retrieve the DueAmount and Amount values for the given HouseID
+                        decimal dueAmount = 0;
+                        decimal amount = 0;
+
+                        string retrieveQuery = "SELECT ISNULL(DueAmount, 0), ISNULL(amount, 0) FROM PaymentStatus WHERE HouseID = @HouseID";
+                        using (SqlCommand retrieveCmd = new SqlCommand(retrieveQuery, con))
+                        {
+                            retrieveCmd.Parameters.AddWithValue("@HouseID", houseID);
+
+                            using (SqlDataReader reader = retrieveCmd.ExecuteReader())
+                            {
+                                if (reader.Read())
+                                {
+                                    dueAmount = reader.GetDecimal(0);
+                                    amount = reader.GetDecimal(1);
+                                }
+                            }
+                        }
+
                         // Proceed with the insert if not charged
                         query = "INSERT INTO PaymentStatus (HouseID, Month, Year, HasPaid, DueAmount, amount) " +
-                                "VALUES (@HouseID, @Month, @Year, 0 , 0, 0)";
+                                "VALUES (@HouseID, @Month, @Year, 0, @DueAmount, @Amount)";
 
                         using (SqlCommand cmd = new SqlCommand(query, con))
                         {
                             cmd.Parameters.AddWithValue("@HouseID", houseID);
                             cmd.Parameters.AddWithValue("@Month", month);
                             cmd.Parameters.AddWithValue("@Year", year);
-                            //cmd.Parameters.AddWithValue("@HasPaid", paymentStatus == "paid" ? 1 : 0);
-                            //cmd.Parameters.AddWithValue("@DueAmount", string.IsNullOrEmpty(paymentAmount) ? DBNull.Value : (object)paymentAmount);
-                            //cmd.Parameters.AddWithValue("@Amount", string.IsNullOrEmpty(paymentAmount) ? DBNull.Value : (object)paymentAmount);
+                            cmd.Parameters.AddWithValue("@DueAmount", amount);
+                            cmd.Parameters.AddWithValue("@Amount", amount);
 
                             cmd.ExecuteNonQuery();
                         }
@@ -105,20 +123,31 @@ namespace waamowaste
                     else if (chargeType == "all")
                     {
                         // All Charge: Insert only for houses that have not been charged for the selected month and year
-                        query = "INSERT INTO PaymentStatus (HouseID, Month, Year, HasPaid, DueAmount, amount) " +
-                                "SELECT h.HouseID, @Month, @Year, 0, 0 AS DueAmount, 0 AS amount " +
-                                "FROM Houses h " +
-                                "WHERE NOT EXISTS (SELECT 1 FROM PaymentStatus ps WHERE ps.HouseID = h.HouseID AND ps.Month = @Month AND ps.Year = @Year)";
+                        query = @"
+        INSERT INTO PaymentStatus (HouseID, Month, Year, HasPaid, DueAmount, amount)
+        SELECT DISTINCT h.HouseID, @Month, @Year, 0,
+               ISNULL(h.Amount, 0) AS DueAmount,
+               ISNULL(h.Amount, 0) AS amount
+        FROM Houses h
+        LEFT JOIN PaymentStatus ps ON ps.HouseID = h.HouseID
+        WHERE NOT EXISTS (
+            SELECT 1 
+            FROM PaymentStatus ps2 
+            WHERE ps2.HouseID = h.HouseID 
+              AND ps2.Month = @Month 
+              AND ps2.Year = @Year
+        )";
+
 
                         using (SqlCommand cmd = new SqlCommand(query, con))
                         {
                             cmd.Parameters.AddWithValue("@Month", month);
                             cmd.Parameters.AddWithValue("@Year", year);
-                   
 
                             cmd.ExecuteNonQuery();
                         }
                     }
+
                 }
 
                 return "success";
@@ -158,28 +187,33 @@ namespace waamowaste
             {
                 con.Open();
                 SqlCommand cmd = new SqlCommand(@"  
-  SELECT TOP (1000) 
-   PaymentStatus.   [PaymentStatusID],
-   PaymentStatus.   [HouseID],
-     PaymentStatus. [Month],
-   PaymentStatus.   [Year],
-     PaymentStatus. [HasPaid],
-    PaymentStatus.  [DueAmount],
-     PaymentStatus. [PaymentPeriodID],
-      PaymentStatus.[paidamount],
-	  Houses.Amount,
-  Houses.HouseNumber,
-      Houses.fullname,
-       Houses.number,
-	  Neighborhoods.NeighborhoodName,
-	  SubNeighborhoods.SubNeighborhoodName
+  
 
-  FROM [waamo_waste].[dbo].[PaymentStatus]
-  inner join Houses on PaymentStatus.HouseID = Houses.HouseID
-  inner join SubNeighborhoods on Houses.SubNeighborhoodID = SubNeighborhoods.SubNeighborhoodID
-inner join Neighborhoods on SubNeighborhoods.NeighborhoodID = Neighborhoods.NeighborhoodID
-  WHERE [Month] = MONTH(GETDATE())
-  AND [Year] = YEAR(GETDATE())
+		SELECT 
+    PaymentStatus.HouseID,
+    Houses.HouseNumber,
+    Houses.fullname,
+    Houses.number,
+    Neighborhoods.NeighborhoodName,
+    SubNeighborhoods.SubNeighborhoodName,
+    SUM(PaymentStatus.DueAmount) AS TotalDueAmount,
+    SUM(PaymentStatus.paidamount) AS TotalPaidAmount,
+    COUNT(PaymentStatus.PaymentStatusID) AS PaymentCount
+FROM 
+    [waamo_waste].[dbo].[PaymentStatus]
+    INNER JOIN Houses ON PaymentStatus.HouseID = Houses.HouseID
+    INNER JOIN SubNeighborhoods ON Houses.SubNeighborhoodID = SubNeighborhoods.SubNeighborhoodID
+    INNER JOIN Neighborhoods ON SubNeighborhoods.NeighborhoodID = Neighborhoods.NeighborhoodID
+
+GROUP BY 
+    PaymentStatus.HouseID,
+    Houses.HouseNumber,
+    Houses.fullname,
+    Houses.number,
+    Neighborhoods.NeighborhoodName,
+    SubNeighborhoods.SubNeighborhoodName
+ORDER BY 
+    Houses.HouseNumber;
         ", con);
 
                 SqlDataReader dr = cmd.ExecuteReader();
@@ -195,9 +229,8 @@ inner join Neighborhoods on SubNeighborhoods.NeighborhoodID = Neighborhoods.Neig
 
                     field.fullname = dr["fullname"].ToString();
                     field.number = dr["number"].ToString();
-                    field.DueAmount = dr["DueAmount"].ToString();
-                    field.amount = dr["Amount"].ToString();
-                    details.Add(field);
+                    field.DueAmount = dr["TotalDueAmount"].ToString();
+                                   details.Add(field);
                 }
             } // Connection will be automatically closed here
 

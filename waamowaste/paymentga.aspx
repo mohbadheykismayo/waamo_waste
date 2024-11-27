@@ -33,9 +33,9 @@
             overflow: hidden;
         }
         .table thead th {
-            background-color: #343a40;
+            background-color:#0a7df0;
             color: white;
-            text-align: center;
+           text-align: center;
         }
         .table tbody td {
             text-align: center;
@@ -100,107 +100,160 @@
 
     </style>
 
-
-    <!-- Custom CSS for additional styling -->
 <style>
-  #customEyeCatchingModal .modal-dialog {
-    max-width: 90%;
+  /* Modal Styles for #tabModal */
+  #tabModal .modal-lg {
+      max-width: 95vw;
+      height: auto;
+  }
+  .is-invalid {
+    border-color: red;
+}
+
+
+  #tabModal .modal-content {
+      border-radius: 15px;
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+      background-color: #f9f9f9;
+      height: 90vh; /* Make modal occupy 90% of the viewport height */
   }
 
-  #modalContent {
-    border-radius: 15px;
-    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+  #tabModal .modal-header {
+      background: linear-gradient(45deg, #007bff, #6610f2);
+      color: white;
+      padding: 1.5rem;
+      border-bottom: none;
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
   }
 
-  #modalHeader {
-    background-color: #f8f9fa;
-    border-bottom: 2px solid #007bff;
-    padding: 1.5rem;
+  #tabModal .modal-title {
+      font-size: 2rem;
+      font-weight: 700;
   }
 
-  #modalBody {
-    padding: 2rem;
-    background-color: #ffffff;
+  #tabModal .modal-body {
+      padding: 0;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
   }
 
-  #styledTable {
-    border-radius: 10px;
+  /* Tabs Styling */
+  #tabModal .nav-tabs {
+      margin: 1rem;
   }
 
-  #styledTable thead {
-    background-color: #343a40;
-    color: #ffffff;
+  #tabModal .nav-tabs .nav-link {
+      color: #007bff;
+      font-weight: 600;
+      border-radius: 30px;
+      padding: 0.75rem 1.5rem;
   }
 
-  #styledTable tbody tr:hover {
-    background-color: #f1f1f1;
+  #tabModal .nav-tabs .nav-link.active {
+      background-color: #007bff;
+      color: white;
+      border-radius: 30px;
+      box-shadow: 0 5px 15px rgba(0, 123, 255, 0.5);
   }
 
-  #paymentForm {
-    background-color: #f0f8ff;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  /* Responsive Content Container */
+  #tabModal .tab-content {
+      flex-grow: 1;
+      overflow: hidden;
   }
 
-
-  #submitPayment {
-    background-color: #007bff;
-    border: none;
-    font-size: 1.2rem;
-    transition: background-color 0.3s;
+  /* Table Styles */
+  #tabModal .table-responsive {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
   }
 
-  #submitPayment:hover {
-    background-color: #0056b3;
+  #tabModal .table {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow-y: auto;
   }
 
-  #confirmPaymentBtn {
-    background-color: #28a745;
-    border: none;
-    font-size: 1rem;
-    transition: background-color 0.3s;
-  }
-
-  #confirmPaymentBtn:hover {
-    background-color: #218838;
-  }
-
-  @media (max-width: 768px) {
-    #customEyeCatchingModal .modal-dialog {
-      max-width: 100%;
-    }
-
-    #modalBody {
+  #tabModal .table th, #tabModal .table td {
       padding: 1rem;
-    }
-
-    #submitPayment {
-      font-size: 1rem;
-    }
+      text-align: center;
   }
-</style>
 
+
+  #tabModal .table thead {
+      background-color: #007bff;
+      color: white;
+      font-weight: 700;
+  }
+
+
+  /* Map Container */
+  #map-container {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+  }
+  /* Map Container */
+#map-container1 {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+#map-container2 {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+  #map {
+      width: 100%;
+      height: 100%;
+  }
+
+
+  /* Map iframe responsive */
+  .map-responsive iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+  }
+
+
+
+      #datatable th {
+
+        color: #ffffff !important; /* Force text color for print */
+
+    }
+
+</style>
 
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="container">
+    <div class="container-fluid">
         <div class="page-header">
             <h1>Payments Section</h1>
         </div>
         <div class="action-buttons">
             <div>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPaymentModal"><i class="fas fa-plus"></i> Charge</button>
-                <button type="button" class="btn btn-success"><i class="fas fa-sync-alt"></i> Refresh Data</button>
+         
             </div>
             <div>
-                <button type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Delete All</button>
+
             </div>
         </div>
         <div class="table-responsive">
             <table class="table table-striped table-hover" id="datatable">
-                <thead>
-                    <tr>
+                <thead class="text-white">
+                    <tr   class="text-white">
                         <th>Fullname</th>
                         <th>House Number</th>
                         <th>Neighborhood</th>
@@ -268,57 +321,124 @@
     </div>
 </div>
 
-<!-- Eye-Catching Custom Styled Payment Modal -->
-<div class="modal fade" id="customEyeCatchingModal" tabindex="-1" aria-labelledby="customEyeCatchingModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl modal-dialog-centered">
-    <div class="modal-content" id="modalContent">
-      <!-- Modal Header -->
-      <div class="modal-header" id="modalHeader">
-        <h5 class="modal-title fw-bold text-primary" id="customEyeCatchingModalLabel">Payment Details</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
 
-      <!-- Modal Body with table and form -->
-      <div class="modal-body" id="modalBody">
-        <!-- Table Section -->
-        <div class="table-responsive">
-          <table class="table table-hover table-striped text-center align-middle" id="styledTable">
-            <thead class="table-dark">
-              <tr>
-                <th>Full Name</th>
-                <th>House Number</th>
-                <th>Neighborhood</th>
-                <th>Sub-Neighborhood</th>
-                <th>Contact Number</th>
-                       <th>MonthYear</th>
-                  
-                <th>Due Amount</th>
-              </tr>
-            </thead>
-            <tbody id="modalTableBody">
-              <!-- Dynamic content goes here -->
-            </tbody>
-          </table>
-        </div>
 
-        <!-- Payment Form Section -->
-        <form id="paymentForm" class="mt-4 p-4 bg-light rounded shadow">
-          <div class="mb-3">
-            <label for="amountInput" class="form-label">Enter Payment Amount</label>
-            <input type="number" class="form-control" id="amountInput" placeholder="Enter amount">
-          </div>
-          <button type="button" class="btn btn-primary w-100 btn-lg" id="submitPayment">Submit Payment</button>
-        </form>
-      </div>
 
-      <!-- Modal Footer -->
-      <div class="modal-footer d-flex justify-content-between" id="modalFooter">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-success" id="confirmPaymentBtn">Confirm Payment</button>
-      </div>
-    </div>
-  </div>
+
+    <!-- Beautiful and Eye-Catching Modal with Full-Sized Tabs for Map and Table -->
+<div class="modal fade" id="tabModal" tabindex="-1" aria-labelledby="tabModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="tabModalLabel">Finance  Details </h5>
+             <input id="id" style="display:none" />
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Tabs Navigation -->
+                <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="table-tab" data-bs-toggle="tab" data-bs-target="#table-content" type="button" role="tab" aria-controls="table-content" aria-selected="true">Table Details</button>
+                    </li>
+                     <%-- <li class="nav-item" role="presentation">
+      <button class="nav-link " id="table-edit" data-bs-toggle="tab" data-bs-target="#table-contentedit" type="button" role="tab" aria-controls="table-content" aria-selected="true"> Edit Table </button>
+  </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="map-tab" data-bs-toggle="tab" data-bs-target="#map-content" type="button" role="tab" aria-controls="map-content" aria-selected="false">Map</button>
+                    </li>--%>
+
+
+ <%--                                       <li class="nav-item" role="presentation">
+    <button class="nav-link " id="table-amount" data-bs-toggle="tab" data-bs-target="#amountsec" type="button" role="tab" aria-controls="table-content" aria-selected="true"> Finance Section </button>
+</li>--%>
+                </ul>
+               
+                <!-- Tabs Content -->
+                <div class="tab-content" id="myTabContent">
+                    <!-- Table Tab -->
+                    <div class="tab-pane fade show active" id="table-content" role="tabpanel" aria-labelledby="table-tab">
+                        <!-- Table Section -->
+       <div class="table-responsive">
+         <table class="table table-hover table-striped text-center align-middle" id="styledTable">
+           <thead class="table-dark">
+             <tr>
+               <th>Full Name</th>
+               <th>House Number</th>
+               <th>Neighborhood</th>
+               <th>Sub-Neighborhood</th>
+               <th>Contact Number</th>
+                      <th>MonthYear</th>
+                 
+               <th>Due Amount</th>
+             </tr>
+           </thead>
+           <tbody id="modalTableBody">
+             <!-- Dynamic content goes here -->
+           </tbody>
+         </table>
+       </div>
+                    </div>
+
+             
+
+
+
+
+
+
+
+
+
+
+
+                    
+                    <!-- Map Tab -->
+                    <div class="tab-pane fade" id="amountsec" role="tabpanel" aria-labelledby="map-tab">
+
+                     
+                        <div id="map-container2" class="container">
+                            <div  class="row align-items-end mb-3">
+                                                       <h1>Recent Finance section</h1>
+                            <div class="table-responsive">
+    <table class="table table-bordered table-striped" id="financedisplay">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Amount</th>
+                   <th>Status</th>
+            
+            </tr>
+        </thead>
+        <tbody>
+            <!-- You can dynamically populate the table here -->
+        </tbody>
+    </table>
 </div>
+                            </div>
+
+           
+                       </div>    
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+         
+        </div>
+    </div>
+</div>
+
+    </div>
+
+
 
 
     <script src="assets/js/jquery-3.6.0.min.js"></script>
@@ -374,10 +494,15 @@
                     success: function (response) {
                         // Check if the server returned 'success'
                         if (response.d === 'success') {
-                            Swal.fire('Success', 'Payment added successfully!', 'success').then(function () {
-                                $('#addPaymentModal').modal('hide');  // Hide the modal
-                                location.reload();  // Optionally reload the page
-                            });
+                        
+                       
+                            Swal.fire(
+                                'Payment added successfully',
+                                'You added a new payment!',
+                                'success'
+                            );
+                            $('#addPaymentModal').modal('hide');
+
                         } else {
                             // Display the error message from the server in a SweetAlert dialog
                             Swal.fire('Error', response.d, 'error');
@@ -466,6 +591,7 @@
         //        }
         //    });
         //});
+
         datadisplay();
         function datadisplay() {
             $.ajax({
@@ -474,11 +600,9 @@
                 type: 'POST',
                 contentType: "application/json",
                 success: function (response) {
-                    console.log(response);
-                    // Clear the existing table content
-                    $("#datatable tbody").empty();
-
-                    // Iterate through the response data
+                    console.log(response)
+                    var datatable = $('#datatable').DataTable();
+                    datatable.clear();
                     for (var i = 0; i < response.d.length; i++) {
                         var NeighborhoodName = response.d[i].NeighborhoodName;
                         var SubNeighborhoodName = response.d[i].SubNeighborhoodName;
@@ -487,32 +611,43 @@
                         var fullname = response.d[i].fullname;
                         var number = response.d[i].number;
                         var HouseID = response.d[i].HouseID;
+
+
                         var amount = response.d[i].amount;
                         var DueAmount = response.d[i].DueAmount;
                         var PaymentStatusID = response.d[i].PaymentStatusID;
 
-                        // Create a new row with the data
-                        var newRow = `
-                    <tr>
-                        <td>${fullname}</td>
-                        <td>${HouseNumber}</td>
-                        <td>${NeighborhoodName}</td>
-                        <td>${SubNeighborhoodName}</td>
-                        <td>${number}</td>
-                        <td>${DueAmount}</td>
-                        <td>
-                            <a class="me-3 edit-button" data-id="${HouseNumber}">
-                                <img src="assets/img/icons/edit.svg" alt="Edit">
-                            </a>
-                            <a class="me-3 delete-btn" data-id="${HouseNumber}">
-                                <img src="assets/img/icons/delete.svg" alt="Delete">
-                            </a>
-                        </td>
-                    </tr>
-                `;
 
-                        // Append the new row to the table body
-                        $("#datatable tbody").append(newRow);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        datatable.row.add([
+                            fullname,
+                            HouseNumber,
+                            NeighborhoodName,
+                            SubNeighborhoodName,
+                            number,
+                            DueAmount,
+                            '<a class="me-3 edit-button" data-id="' + HouseNumber + '">' +
+                            '<img src="assets/img/icons/edit.svg" alt="Edit">' +
+                            '</a>' +
+                            '<a class="me-3 delete-btn" data-id="' + HouseNumber + '">' +
+                            '<img src="assets/img/icons/delete.svg" alt="Delete">' +
+                            '</a>'
+                        ]).draw();
                     }
                 },
                 error: function (response) {
@@ -520,6 +655,7 @@
                 }
             });
         }
+
 
 
 
@@ -607,8 +743,7 @@
                         var amountValue = $('#amount-' + PaymentStatusID).val(); // Get the value from the input field
 
 
-                        alert(PaymentStatusID);
-                        alert(amountValue);
+                   
                         // Make an AJAX request to save the entered amount for this house
                         $.ajax({
                             url: 'paymentga.aspx/saveAmount',
@@ -617,8 +752,12 @@
                             contentType: 'application/json',
                             success: function (response) {
                                 console.log(response);
-                                alert('Amount saved successfully!');
-                                // Optionally, you can update the UI or refresh part of the page here without reloading the full page
+                           
+                                Swal.fire(
+                                    'Payment added successfully',
+                                    'You added a new payment!',
+                                    'success'
+                                );
                             },
                             error: function (xhr, status, error) {
                                 // Capture and display the server-side error message
@@ -633,7 +772,7 @@
                 }
             });
 
-            $('#customEyeCatchingModal').modal('show');
+            $('#tabModal').modal('show');
 
 
         });

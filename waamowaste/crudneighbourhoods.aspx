@@ -23,12 +23,7 @@
       </div>
       <div class="modal-body">
 
-          <div class="page-header">
-<div class="page-title">
-<h4>Items Add to Stock</h4>
-
-</div>
-</div>
+  
 
 <div class="card">
 <div class="card-body">
@@ -37,7 +32,7 @@
 <div class="col-lg-4 col-sm-6 col-12" id="dropee">
 <div class="form-group">
 <label> Xaafada</label>
-<select class="select" id="itemdrop">
+<select class="select form-control" id="itemdrop">
 
 </select>
        <small id="xafad1" class="text-danger"></small>
@@ -85,7 +80,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">Xaadada ku dar , kana badal xog</h1>
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Ku Dar Xaafad</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -128,7 +123,7 @@
 
 
     <div class="row">
-        <div class="col-lg-6 col-md-12">
+        <div class="col-lg-12 col-md-12">
             <div class="page-header">
 <div class="page-title">
 <h4>Magacyada Xaafadaha </h4>
@@ -143,68 +138,9 @@
 
 <div class="card">
 <div class="card-body">
-<div class="table-top">
-<div class="search-set">
-<div class="search-path">
-<a class="btn btn-filter" id="filter_search">
-<img src="assets/img/icons/filter.svg" alt="img">
-<span><img src="assets/img/icons/closes.svg" alt="img"></span>
-</a>
-</div>
-<div class="search-input">
-<a class="btn btn-searchset"><img src="assets/img/icons/search-white.svg" alt="img"></a>
-</div>
-</div>
-<div class="wordset">
-<ul>
-<li>
-<a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img src="assets/img/icons/pdf.svg" alt="img"></a>
-</li>
-<li>
-<a data-bs-toggle="tooltip" data-bs-placement="top" title="excel"><img src="assets/img/icons/excel.svg" alt="img"></a>
-</li>
-<li>
-<a data-bs-toggle="tooltip" data-bs-placement="top" title="print"><img src="assets/img/icons/printer.svg" alt="img"></a>
-</li>
-</ul>
-</div>
-</div>
 
-<div class="card" id="filter_inputs">
-<div class="card-body pb-0">
-<div class="row">
-<div class="col-lg-2 col-sm-6 col-12">
-<div class="form-group">
-<select class="select">
-<option>Choose Category</option>
-<option>Computers</option>
-</select>
-</div>
-</div>
-<div class="col-lg-2 col-sm-6 col-12">
-<div class="form-group">
-<select class="select">
-<option>Choose Sub Category</option>
-<option>Fruits</option>
-</select>
-</div>
-</div>
-<div class="col-lg-2 col-sm-6 col-12">
-<div class="form-group">
-<select class="select">
-<option>Choose Sub Brand</option>
-<option>Iphone</option>
-</select>
-</div>
-</div>
-<div class="col-lg-1 col-sm-6 col-12 ms-auto">
-<div class="form-group">
-<a class="btn btn-filters ms-auto"><img src="assets/img/icons/search-whites.svg" alt="img"></a>
-</div>
-</div>
-</div>
-</div>
-</div>
+
+
 
 <div class="table-responsive">
 <table class="table  " id="datatable">
@@ -225,7 +161,7 @@
 </div>
 </div>
         </div>
-         <div class="col-lg-6 col-md-12">
+         <div class="col-lg-12 col-md-12">
                          <div class="page-header">
 <div class="page-title">
 <h4>Magacyada Waaxyada </h4>
@@ -240,76 +176,17 @@
 
 <div class="card">
 <div class="card-body">
-<div class="table-top">
-<div class="search-set">
-<div class="search-path">
-<a class="btn btn-filter" id="filter_search1">
-<img src="assets/img/icons/filter.svg" alt="img">
-<span><img src="assets/img/icons/closes.svg" alt="img"></span>
-</a>
-</div>
-<div class="search-input">
-<a class="btn btn-searchset"><img src="assets/img/icons/search-white.svg" alt="img"></a>
-</div>
-</div>
-<div class="wordset">
-<ul>
-<li>
-<a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img src="assets/img/icons/pdf.svg" alt="img"></a>
-</li>
-<li>
-<a data-bs-toggle="tooltip" data-bs-placement="top" title="excel"><img src="assets/img/icons/excel.svg" alt="img"></a>
-</li>
-<li>
-<a data-bs-toggle="tooltip" data-bs-placement="top" title="print"><img src="assets/img/icons/printer.svg" alt="img"></a>
-</li>
-</ul>
-</div>
-</div>
 
-<div class="card" id="filter_inputs1">
-<div class="card-body pb-0">
-<div class="row">
-<div class="col-lg-2 col-sm-6 col-12">
-<div class="form-group">
-<select class="select">
-<option>Choose Category</option>
-<option>Computers</option>
-</select>
-</div>
-</div>
-<div class="col-lg-2 col-sm-6 col-12">
-<div class="form-group">
-<select class="select">
-<option>Choose Sub Category</option>
-<option>Fruits</option>
-</select>
-</div>
-</div>
-<div class="col-lg-2 col-sm-6 col-12">
-<div class="form-group">
-<select class="select">
-<option>Choose Sub Brand</option>
-<option>Iphone</option>
-</select>
-</div>
-</div>
-<div class="col-lg-1 col-sm-6 col-12 ms-auto">
-<div class="form-group">
-<a class="btn btn-filters ms-auto"><img src="assets/img/icons/search-whites.svg" alt="img"></a>
-</div>
-</div>
-</div>
-</div>
-</div>
+
+
 
 <div class="table-responsive">
 <table class="table  " id="waax">
 <thead>
 <tr>
 
-<th>Magaca Xaafada</th>
-    <th>Magaca Waaxda</th>
+<th> Xaafada</th>
+    <th> Waaxda</th>
 
 <th>Ficil</th>
 </tr>
@@ -368,6 +245,19 @@
                     }
 
 
+                    // Initialize DataTable with search, pagination, and export buttons
+                    $("#datatable").DataTable({
+                        destroy: true,  // Destroy any existing instance before re-initializing
+                        dom: 'Bfrtip',  // Define the placement of buttons and the search box
+                        buttons: [
+                            'excelHtml5',  // Export to Excel
+                            'print'        // Print button
+                        ],
+                        paging: true,       // Enable pagination
+                        pageLength: 10,     // Default number of rows per page
+                        lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                        responsive: true    // Make the table responsive
+                    });
                 },
                 error: function (response) {
                     alert(response.responseText);
@@ -660,7 +550,19 @@
                             "</tr>"
                         );
                     }
-
+                    // Initialize DataTable with search, pagination, and export buttons
+                    $("#waax").DataTable({
+                        destroy: true,  // Destroy any existing instance before re-initializing
+                        dom: 'Bfrtip',  // Define the placement of buttons and the search box
+                        buttons: [
+                            'excelHtml5',  // Export to Excel
+                            'print'        // Print button
+                        ],
+                        paging: true,       // Enable pagination
+                        pageLength: 10,     // Default number of rows per page
+                        lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                        responsive: true    // Make the table responsive
+                    });
 
                 },
                 error: function (response) {
